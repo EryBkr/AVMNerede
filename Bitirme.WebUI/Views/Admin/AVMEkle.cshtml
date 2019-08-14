@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "AVMEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<h2>AVMEkle</h2>
+<div class="row">
+    <div class="col-md-7">
+        <div id="map" style="width:100%; height:600px"></div>
+    </div>
+    <div class="col-md-5">
+        <form id="myForm" method="post" action="/Admin/AVMEkle" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label for="inputEmail4">AVM Adı</label>
+                <input name="Ad" type="text" class="form-control" id="inputEmail4" placeholder="Ad">
+            </div>
+
+            <div class="form-group">
+                <label for="inputAddress">Adres</label>
+                <input name="Adres" type="text" class="form-control" id="inputAddress" placeholder="Adres">
+            </div>
+            <input required style="display:none;" name="cordX" type="text" class="form-control" id="cordX">
+            <input required style="display:none;" name="cordY" type="text" class="form-control" id="cordY">
+            <div class="form-group">
+                <label for="inputCity">Telefon</label>
+                <input name="Telefon" type="tel" class="form-control" id="inputCity">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Resimler</label>
+                <input name="image" required type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" multiple>
+            </div>
+            <div class="form-group">
+                <label for="inputState">Şehir</label>
+                <select name="SehirId" id="inputState" class="form-control">
+                    @foreach (var item in (List<Bitirme.Data.DTO.DTOSehir>)TempData["Sehirler"])
+                    {
+                        <option value="@item.Id" selected>@item.Ad</option>
+                    }
+
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">Ekle</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    ymaps.ready(init);
+    var myMap, myPlacemark, x, y, myCollection;
+    function init() {
+        myMap = new ymaps.Map("map", {
+            center: [39.13, 34.64],
+            zoom: 6
+        });
+
+        myCollection = new ymaps.GeoObjectCollection();
+
+        myMap.events.add('click', function (e) {
+
+            var coords = e.get('coords');
+
+            y = coords[0].toPrecision(6);
+            x = coords[1].toPrecision(6);
+            $("#cordX").val(parseFloat(x));
+            $("#cordY").val(parseFloat(y));
+            myPlacemark = new ymaps.Placemark([y, x], {
+                hintContent: 'Moscow!', balloonContent: 'Capital of Russia'
+            });
+            myCollection.removeAll();
+            myCollection.add(myPlacemark);
+            myMap.geoObjects.add(myCollection);
+
+        });
+
+    }
+
+</script>
+

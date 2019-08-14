@@ -1,0 +1,132 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.0.js"
+            integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo="
+            crossorigin="anonymous"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.1.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=0bba819d-ce35-4266-95b0-8c9a1c12f4c8&lang=en_US" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <title>Anasayfa</title>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .col-md-12 {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .form-row {
+            position: absolute;
+            z-index: 2001;
+            margin-top: 4px;
+            width: 64%;
+            margin-left: 450px;
+            right: 0px;
+            margin-right: 0px;
+        }
+
+        .col-auto {
+            width: 40%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .form-row > [class*=col-] {
+            padding: 0px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-row align-items-center" style="height:0px;">
+                    <div class="col-auto">
+
+                        <input type="text" style="border-radius:0px;" class="form-control mb-2" id="search" placeholder="Şehre ya da Markaya göre AVM Arayabilirsiniz">
+                    </div>
+                    <div class="col-auto"  style="height:45px;">
+                        <button id="btnSearch" type="button" style="border-radius:0px;" class="btn btn-warning mb-2"><i class="fas fa-search-location"></i></button>
+                    </div>
+                </div>
+                <div id="map" style="height:950px;width:100%;">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        var myCollection;
+        var mapControl = $.connection.myHub;
+        
+        $.connection.hub.start().done(function () {
+            mapControl.server.getCollectionPlaceMark();   
+        });
+
+        mapControl.client.allPlaceMark = function (allPlaceMarks) {
+            
+            function init() {
+                myMap = new ymaps.Map("map", {
+                    center: [38.13, 34.64],
+                    zoom: 6.5
+                });
+                myCollection = new ymaps.GeoObjectCollection();
+                for (var i = 0; i < allPlaceMarks.length; i++) {
+                    myCollection.add(new ymaps.Placemark([allPlaceMarks[i].cordY, allPlaceMarks[i].cordX], {
+                        hintContent: allPlaceMarks[i].Ad, balloonContent: "<a href='/Home/DetailsAVM/" + allPlaceMarks[i].Id + "'>" + allPlaceMarks[i].Ad + "</a>"
+                    }));
+
+                    myMap.geoObjects.add(myCollection);
+                }
+            }
+            ymaps.ready(init);
+        }
+
+        mapControl.client.bulunanAvmler = function (bulunanlar) {
+            $("#map").empty();
+            function init() {
+                myMap = new ymaps.Map("map", {
+                    center: [38.13, 34.64],
+                    zoom: 6.5
+                });
+                myCollection = new ymaps.GeoObjectCollection();
+                for (var i = 0; i < bulunanlar.length; i++) {
+                    myCollection.add(new ymaps.Placemark([bulunanlar[i].cordY, bulunanlar[i].cordX], {
+                        hintContent: bulunanlar[i].Ad, balloonContent: "<a href='/Home/DetailsAVM/" + bulunanlar[i].Id + "'>" + bulunanlar[i].Ad + "</a>"
+                    }));
+
+                    myMap.geoObjects.add(myCollection);
+                }
+            }
+            ymaps.ready(init);
+        };
+
+        $("#btnSearch").click(function () {
+            var search = $("#search").val();
+            mapControl.server.araBul(search);
+        });
+
+    </script>
+</body>
+</html>

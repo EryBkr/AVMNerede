@@ -1,0 +1,41 @@
+﻿@model Bitirme.Data.DTO.DTOMarka
+@{
+    ViewBag.Title = "MarkaDuzenle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6">
+
+        <form method="post" action="/Admin/MarkaDuzenle" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label for="exampleInputEmail1">Marka Adı</label>
+                <input name="Ad" value="@Model.Ad" required type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Marka Adı">
+                <small id="emailHelp" class="form-text text-muted">Lütfen Marka adı giriniz</small>
+            </div>
+            <input name="Id" style="display:none;" value="@Model.Id" />
+            <div class="form-group">
+                <label for="exampleInputEmail1">Telefon</label>
+                <input name="Telefon" value="@Model.Telefon" required type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Telefon">
+                <small id="emailHelp" class="form-text text-muted">Lütfen Telefon giriniz</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Resimler</label>
+                <input name="image" required type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" multiple>
+            </div>
+            <div class="form-group">
+                <label for="inputState">AVM</label>
+                <select name="AVMId" id="inputState" class="form-control">
+                    @foreach (var item in (List<Bitirme.Data.DTO.DTOAVM>)TempData["AVMler"])
+                    {
+                        <option value="@item.Id" selected>@item.Ad</option>
+                    }
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">Kaydet</button>
+        </form>
+    </div>
+</div>
+

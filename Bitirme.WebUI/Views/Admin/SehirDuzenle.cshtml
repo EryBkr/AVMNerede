@@ -1,0 +1,16 @@
+﻿@model Bitirme.Data.DTO.DTOSehir
+@{
+    ViewBag.Title = "SehirDuzenle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form method="post" action="/Admin/SehirDuzenle">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="exampleInputEmail1">Şehir Adını Düzenle</label>
+        <input name="Id" value="@Model.Id" hidden />
+        <input name="Ad" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Şehir Adı" value="@Model.Ad">  
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>
+

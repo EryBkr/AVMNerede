@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Bitirme.Data.DTO.DTOAVM>
+@{
+    ViewBag.Title = "AVMIslem";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Ara</label>
+        <input style="width:50%;" name="Ad" onkeyup="myFunction()" type="text" class="form-control" id="search" aria-describedby="emailHelp" placeholder="Ara">
+        <small id="emailHelp" class="form-text text-muted">Şehir ve AVM Arama</small>
+    </div>
+</form>
+<div class="row">
+    <div class="col-md-8">
+        @if (ViewBag.Ekleme == "true")
+        {
+            <div class="alert alert-success" role="alert">
+                Ekleme İşlemi Başarılı
+            </div>
+        }
+        @if (ViewBag.Silme == "true")
+        {
+            <div class="alert alert-success" role="alert">
+                Silme İşlemi Başarılı
+            </div>
+        }
+        @if (ViewBag.Duzenleme == "true")
+        {
+            <div class="alert alert-success" role="alert">
+                Duzenleme İşlemi Başarılı
+            </div>
+        }
+
+        <a href="/Admin/AVMEkle" class="btn btn-success btn-sm">Ekle</a>
+        <table class="table table-hover table-dark table-striped">
+            <thead>
+                <tr>
+
+                    <th scope="col">AVM Adı</th>
+                    <th scope="col">AVM Telefon</th>
+                    <th scope="col">Bulunduğu Şehir</th>
+                    <th scope="col">Adres</th>
+                    <th scope="col">Mağaza Sayısı</th>
+
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Ad</td>
+                        <td>@item.Telefon</td>
+                        <td>@item.Sehir.Ad</td>
+                        <td>@item.Adres</td>
+                        <td>@item.MarkaCount</td>
+
+                        <td>
+                            <a href="/Admin/AVMDuzenle/@item.Id" class="btn btn-primary btn-sm">Düzenle</a>
+                            <a href="/Admin/AVMSil/@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    myFunction = function () {
+        var value = $("#search").val().toLowerCase();
+        $("#myTable tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    }
+</script>
+

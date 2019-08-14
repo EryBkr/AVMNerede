@@ -1,0 +1,215 @@
+﻿@{ 
+    if (Session["Admin"]==null)
+    {
+        Response.Redirect("/Admin/LogIn");
+    }
+
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+    <meta name="author" content="GeeksLabs">
+    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>Admin Paneli</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/AdminContent/css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="~/AdminContent/css/bootstrap-theme.css" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+    <link href="~/AdminContent/css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="~/AdminContent/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- full calendar css-->
+    <link href="~/AdminContent/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+    <link href="~/AdminContent/assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
+    <!-- easy pie chart-->
+    <link href="~/AdminContent/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen" />
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="~/AdminContent/css/owl.carousel.css" type="text/css">
+    <link href="~/AdminContent/css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="~/AdminContent/css/fullcalendar.css">
+    <link href="~/AdminContent/css/widgets.css" rel="stylesheet">
+    <link href="~/AdminContent/css/style.css" rel="stylesheet">
+    <link href="~/AdminContent/css/style-responsive.css" rel="stylesheet" />
+    <link href="~/AdminContent/css/xcharts.min.css" rel=" stylesheet">
+    <link href="~/AdminContent/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <!--JQuery CDN-->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <!--Yandex API-->
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=0bba819d-ce35-4266-95b0-8c9a1c12f4c8&lang=en_US" type="text/javascript"></script>
+    <!--Fontawesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+</head>
+<body>
+    <header class="header dark-bg">
+        <div class="toggle-nav">
+            <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+        </div>
+
+        <!--logo start-->
+        <a href="/Admin/Index" class="logo">Admin <span class="lite">Panel</span></a>
+        <!--logo end-->
+
+        <div class="nav search-row" id="top_menu">
+       
+            <!--  search form end -->
+        </div>
+
+        <div class="top-nav notification-row">
+            <!-- notificatoin dropdown start-->
+            <ul class="nav pull-right top-menu">
+                <!-- user login dropdown start-->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="profile-ava">
+                            <img alt="" style="width:40px;height:40px;" src="https://img.icons8.com/cotton/2x/name.png">
+                        </span>
+                        <span class="username">Admin</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <div class="log-arrow-up"></div>
+                        <li>
+                            <a href="/Admin/LogOut"><i class="icon_key_alt"></i>Çıkış Yap</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- user login dropdown end -->
+            </ul>
+            <!-- notificatoin dropdown end-->
+        </div>
+    </header>
+    <aside>
+        <div id="sidebar" class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu">
+
+                <li>
+                    <a class="" href="/Admin/SehirIslem">
+                        <i class="~/AdminContent/icon_genius"></i>
+                        <span>Şehir İşlemleri</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="" href="/Admin/AVMIslem">
+                        <i class="~/AdminContent/icon_piechart"></i>
+                        <span>AVM İşlemleri</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="" href="/Admin/MarkaIslem">
+                        <i class="~/AdminContent/icon_desktop"></i>
+                        <span>Marka İşlemleri</span>
+                    </a>
+                </li>
+
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <section id="main-content">
+        <section class="wrapper">
+            @RenderBody()
+        </section>
+    </section>
+
+        <script src="~/AdminContent/js/jquery.js"></script>
+        <script src="~/AdminContent/js/jquery-ui-1.10.4.min.js"></script>
+        <script src="~/AdminContent/js/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" src="~/AdminContent/js/jquery-ui-1.9.2.custom.min.js"></script>
+        <!-- bootstrap -->
+        <script src="~/AdminContent/js/bootstrap.min.js"></script>
+        <!-- nice scroll -->
+        <script src="~/AdminContent/js/jquery.scrollTo.min.js"></script>
+        <script src="~/AdminContent/js/jquery.nicescroll.js" type="text/javascript"></script>
+        <!-- charts scripts -->
+        <script src="~/AdminContent/assets/jquery-knob/js/jquery.knob.js"></script>
+        <script src="~/AdminContent/js/jquery.sparkline.js" type="text/javascript"></script>
+        <script src="~/AdminContent/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
+        <script src="~/AdminContent/js/owl.carousel.js"></script>
+        <!-- jQuery full calendar -->
+        <script src="~/AdminContent/js/fullcalendar.min.js"></script>
+        <!-- Full Google Calendar - Calendar -->
+        <script src="~/AdminContent/assets/fullcalendar/fullcalendar/fullcalendar.js"></script>
+        <!--script for this page only-->
+        <script src="~/AdminContent/js/calendar-custom.js"></script>
+        <script src="~/AdminContent/js/jquery.rateit.min.js"></script>
+        <!-- custom select -->
+        <script src="~/AdminContent/js/jquery.customSelect.min.js"></script>
+        <script src="~/AdminContent/assets/chart-master/Chart.js"></script>
+
+        <!--custome script for all page-->
+        <script src="~/AdminContent/js/scripts.js"></script>
+        <!-- custom script for this page-->
+        <script src="~/AdminContent/js/sparkline-chart.js"></script>
+        <script src="~/AdminContent/js/easy-pie-chart.js"></script>
+        <script src="~/AdminContent/js/jquery-jvectormap-1.2.2.min.js"></script>
+        <script src="~/AdminContent/js/jquery-jvectormap-world-mill-en.js"></script>
+        <script src="~/AdminContent/js/xcharts.min.js"></script>
+        <script src="~/AdminContent/js/jquery.autosize.min.js"></script>
+        <script src="~/AdminContent/js/jquery.placeholder.min.js"></script>
+        <script src="~/AdminContent/js/gdp-data.js"></script>
+        <script src="~/AdminContent/js/morris.min.js"></script>
+        <script src="~/AdminContent/js/sparklines.js"></script>
+        <script src="~/AdminContent/js/charts.js"></script>
+        <script src="~/AdminContent/js/jquery.slimscroll.min.js"></script>
+        <script>
+            //knob
+            $(function () {
+                $(".knob").knob({
+                    'draw': function () {
+                        $(this.i).val(this.cv + '%')
+                    }
+                })
+            });
+
+            //carousel
+            $(document).ready(function () {
+                $("#owl-slider").owlCarousel({
+                    navigation: true,
+                    slideSpeed: 300,
+                    paginationSpeed: 400,
+                    singleItem: true
+
+                });
+            });
+
+            //custom select box
+
+            $(function () {
+                $('select.styled').customSelect();
+            });
+
+            /* ---------- Map ---------- */
+            $(function () {
+                $('#map').vectorMap({
+                    map: 'world_mill_en',
+                    series: {
+                        regions: [{
+                            values: gdpData,
+                            scale: ['#000', '#000'],
+                            normalizeFunction: 'polynomial'
+                        }]
+                    },
+                    backgroundColor: '#eef3f7',
+                    onLabelShow: function (e, el, code) {
+                        el.html(el.html() + ' (GDP - ' + gdpData[code] + ')');
+                    }
+                });
+            });
+        </script>
+
+</body>
+
+</html>

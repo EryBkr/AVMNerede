@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "SehirEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6">
+       
+        <form method="post" action="/Admin/SehirEkle">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label for="exampleInputEmail1">Şehir Adı</label>
+                <input name="Ad" required type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Şehir Adı">
+                <small id="emailHelp" class="form-text text-muted">Lütfen şehir adı giriniz</small>
+            </div>
+
+            <button type="submit" class="btn btn-success">Kaydet</button>
+        </form>
+    </div>
+</div>
+
+
